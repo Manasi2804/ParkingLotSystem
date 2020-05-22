@@ -1,0 +1,7 @@
+package com.bl.parkinglotsystem;
+
+public class ParkingLotSystem {
+    public static void main(String[] args) {
+        System.out.println("Welcome to parking lot problem");
+    }
+}
