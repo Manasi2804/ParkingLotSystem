@@ -6,6 +6,7 @@ import org.junit.Test;
 
 
 public class ParkingLotSystemTest {
+
     ParkingLotSystem parkingLotSystem;
     Object vehicle;
     private SlotAllotment slotAllotment;
@@ -39,16 +40,16 @@ public class ParkingLotSystemTest {
     }
 
     @Test
-        public void givenVehicle_IfRePark_ShouldThrowAnException() {
-            try {
-                parkingLotSystem.setParkingLotCapacity(3);
-                parkingLotSystem.parkTheCar(vehicle);
-                parkingLotSystem.parkTheCar(vehicle);
-            } catch (ParkingLotSystemException e) {
-                e.printStackTrace();
-                Assert.assertEquals(ParkingLotSystemException.ExceptionType.CAR_ALREADY_PARKED, e.type);
-            }
+    public void givenVehicle_IfRePark_ShouldThrowAnException() {
+        try {
+            parkingLotSystem.setParkingLotCapacity(3);
+            parkingLotSystem.parkTheCar(vehicle);
+            parkingLotSystem.parkTheCar(vehicle);
+        } catch (ParkingLotSystemException e) {
+            e.printStackTrace();
+            Assert.assertEquals(ParkingLotSystemException.ExceptionType.CAR_ALREADY_PARKED, e.type);
         }
+    }
     @Test
     public void givenParkingLot_WhenFull_ShouldInformToOwner() {
         try {
@@ -99,6 +100,17 @@ public class ParkingLotSystemTest {
         slotAllotment.unParkUpdate(vehicle);
         Assert.assertEquals(0, slotAllotment.parkingAvailabilityStatus.get(Availability.OCCUPIED).size());
         Assert.assertEquals(2, slotAllotment.parkingAvailabilityStatus.get(Availability.UNOCCUPIED).size());
+    }
+    @Test
+    public void givenParkingSlot_WhenCarFound_ShouldReturnTrue() {
+        try {
+            parkingLotSystem.parkTheCar(vehicle);
+            parkingLotSystem.unParkTheCar(vehicle);
+            boolean isUnParked = parkingLotSystem.isThisCarPresentInTheParkingLot(vehicle);
+            Assert.assertEquals(true, isUnParked);
+        } catch (ParkingLotSystemException e) {
+            e.printStackTrace();
+        }
     }
 }
 
