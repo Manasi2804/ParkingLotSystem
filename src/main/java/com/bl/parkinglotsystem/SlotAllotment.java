@@ -1,5 +1,7 @@
 package com.bl.parkinglotsystem;
 
+import com.bl.parkinglotsystem.exception.ParkingLotSystemException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -37,5 +39,14 @@ public class SlotAllotment {
                 .add(this.parkingAvailabilityStatus.get(Availability.OCCUPIED).indexOf(vehicle) + 1);
         this.parkingAvailabilityStatus.get(Availability.OCCUPIED).remove(vehicle);
         Collections.sort(this.parkingAvailabilityStatus.get(Availability.UNOCCUPIED));
+    }
+    public int getNearestParkingSlot() throws ParkingLotSystemException {
+        try {
+            return (Integer) this.parkingAvailabilityStatus.get(Availability.UNOCCUPIED).remove(0);
+        } catch (IndexOutOfBoundsException e) {
+            this.observersInformer.informThatParkingIsFull();
+            throw new ParkingLotSystemException("No parking space available!!",
+                    ParkingLotSystemException.ExceptionType.PARKING_FULL);
+        }
     }
 }
