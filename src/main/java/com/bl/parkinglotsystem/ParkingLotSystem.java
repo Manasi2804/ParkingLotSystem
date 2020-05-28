@@ -10,7 +10,7 @@ public class ParkingLotSystem {
     private boolean parkingCapacityFull;
     private final ObserversInformer observersInformer;
 
-    public ParkingLotSystem() {
+    public ParkingLotSystem(int i) {
         this.parkedVehicles = new ArrayList();
         this.observersInformer = new ObserversInformer();
     }
