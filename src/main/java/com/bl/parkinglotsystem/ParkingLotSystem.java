@@ -1,48 +1,51 @@
 package com.bl.parkinglotsystem;
 
 import com.bl.parkinglotsystem.exception.ParkingLotSystemException;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class ParkingLotSystem {
-    private Object vehicle;
-    private int capacity;
-    private int spaceAvailable;
-    private Owner owner;
-    private AirportSecurity airportSecurity;
-    List<Object> vehiclesList = new ArrayList<>();
+    private List parkedVehicles;
+    private int parkingCapacity;
+    private boolean parkingCapacityFull;
+    public List<ParkingLotObserver> observers;
 
-    public void ParkingLotSystem(int capacity) {
-        this.capacity = capacity;
-        this.spaceAvailable = capacity;
-    }
-    public void ParkingLotSystem(int capacity, Owner owner) {
-        this.capacity = capacity;
-        this.spaceAvailable = capacity;
-        this.owner = owner;
-    }
-    public boolean park(Object vehicle) throws ParkingLotSystemException {
-        if (spaceAvailable > 0) {
-            if (this.vehicle != null) {
-                throw new ParkingLotSystemException("Parking lot is full", ParkingLotSystemException.ExceptionType.PARKING_FULL);
-            }
-            vehiclesList.add(vehicle);
-            if (vehiclesList.size() == capacity) {
-                if (owner != null) {
-                    owner.setMessage("Parking lot is full");
-            } else
-                airportSecurity.setMessage("Parking lot is full");
+    public ParkingLotSystem() {
+        this.parkedVehicles = new ArrayList();
+        this.observers = new ArrayList();
+        for (ParkingLotObserver observer : ParkingLotObserver.values()) {
+            this.observers.add(observer);
         }
-            spaceAvailable--;
+    }
+    public void setParkingLotCapacity(int capacity) {
+        this.parkingCapacity = capacity;
+    }
+    public boolean isThisCarPresentInTheParkingLot(Object vehicle) {
+        if (this.parkedVehicles.contains(vehicle)) {
             return true;
         }
-        throw new ParkingLotSystemException("Parking lot is full", ParkingLotSystemException.ExceptionType.PARKING_FULL);
+        return false;
     }
-    public Object unPark(Object vehicle) throws ParkingLotSystemException {
-        if (vehiclesList.contains(vehicle)) {
-            return vehiclesList.remove(vehiclesList.indexOf(vehicle));
+    public void parkTheCar(Object vehicle) throws ParkingLotSystemException {
+        if (this.parkedVehicles.size() == this.parkingCapacity) {
+            this.parkingCapacityFull = true;
+            this.observers.forEach(observer -> observer.isParkingFull = true);
+            throw new ParkingLotSystemException("No space available in the parking lot!",
+                    ParkingLotSystemException.ExceptionType.PARKING_FULL);
         }
-        throw new ParkingLotSystemException("The vehicle is not parked here", ParkingLotSystemException.ExceptionType.NO_VEHICLE);
+        if (this.isThisCarPresentInTheParkingLot(vehicle)) {
+            throw new ParkingLotSystemException("Car already present in parking lot!",
+                    ParkingLotSystemException.ExceptionType.CAR_ALREADY_PARKED);
+        }
+        this.parkedVehicles.add(vehicle);
+    }
+    public void unParkTheCar(Object vehicle) throws ParkingLotSystemException {
+        if (this.isThisCarPresentInTheParkingLot(vehicle)) {
+            this.parkedVehicles.remove(vehicle);
+            this.observers.forEach(observer -> observer.isParkingFull = false);
+            return;
+        }
+        throw new ParkingLotSystemException("No such car present in parking lot!",
+                ParkingLotSystemException.ExceptionType.NO_VEHICLE);
     }
 }
