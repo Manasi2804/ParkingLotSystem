@@ -10,12 +10,12 @@ public class ParkingLotSystem {
     private int capacity;
     private int spaceAvailable;
     private Owner owner;
+    private AirportSecurity airportSecurity;
     List<Object> vehiclesList = new ArrayList<>();
 
     public void ParkingLotSystem(int capacity) {
         this.capacity = capacity;
         this.spaceAvailable = capacity;
-        this.owner = owner;
     }
     public void ParkingLotSystem(int capacity, Owner owner) {
         this.capacity = capacity;
@@ -31,8 +31,9 @@ public class ParkingLotSystem {
             if (vehiclesList.size() == capacity) {
                 if (owner != null) {
                     owner.setMessage("Parking lot is full");
-                }
-            }
+            } else
+                airportSecurity.setMessage("Parking lot is full");
+        }
             spaceAvailable--;
             return true;
         }
