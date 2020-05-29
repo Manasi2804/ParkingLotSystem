@@ -6,6 +6,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Map;
+
 
 public class ParkingLotSystemTest {
     ParkingLotSystem parkingLotSystem;
@@ -23,7 +25,7 @@ public class ParkingLotSystemTest {
     @Test
     public void givenAVehicleToPark_WhenParkedInParkingLot_ShouldReturnTrue() {
         try {
-            vehicle = new Vehicle("1", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL);
+            vehicle = new Vehicle("1", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE);
             parkingLotSystem.park(vehicle);
             boolean isPark = parkingLotSystem.isVehicleParked(vehicle);
             Assert.assertTrue(isPark);
@@ -36,9 +38,9 @@ public class ParkingLotSystemTest {
     public void givenAVehicle_WhenAlreadyParkedInParkingLot_ShouldThrowException() {
         parkingLotSystem = new ParkingLotSystem(3, 3);
         try {
-            parkingLotSystem.park(new Vehicle("1", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL));
-            parkingLotSystem.park(new Vehicle("2", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL));
-            parkingLotSystem.park(new Vehicle("3", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL));
+            parkingLotSystem.park(new Vehicle("1", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE));
+            parkingLotSystem.park(new Vehicle("2", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE));
+            parkingLotSystem.park(new Vehicle("3", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE));
         } catch (ParkingLotSystemException e) {
             Assert.assertEquals(ParkingLotSystemException.ExceptionType.PARKING_LOT_IS_FULL, e.type);
         }
@@ -46,7 +48,7 @@ public class ParkingLotSystemTest {
 
     @Test
     public void givenAVehicle_WhenNotParkedInParkingLot_ShouldReturnFalse() {
-        vehicle = new Vehicle("1", Vehicle.DriverType.NORMAL, Vehicle.VehicleSize.SMALL);
+        vehicle = new Vehicle("1", Vehicle.DriverType.NORMAL, Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE);
         boolean isPark = parkingLotSystem.isVehicleParked(vehicle);
         Assert.assertFalse(isPark);
     }
@@ -54,7 +56,7 @@ public class ParkingLotSystemTest {
     @Test
     public void givenAVehicle_WhenUnParkedFromParkingLot_ShouldReturnTrue() {
         try {
-            Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL);
+            Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE);
             parkingLotSystem.park(vehicleOne);
             parkingLotSystem.unPark(vehicleOne);
             boolean isUnPark = parkingLotSystem.isVehicleUnPark(vehicleOne);
@@ -67,8 +69,8 @@ public class ParkingLotSystemTest {
     @Test
     public void givenAVehicle_WhenNoVehicleUnParked_ShouldThrowException() {
         try {
-            Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL);
-            Vehicle vehicleTwo = new Vehicle("2", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL);
+            Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE);
+            Vehicle vehicleTwo = new Vehicle("2", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE);
             parkingLotSystem.park(vehicleOne);
             parkingLotSystem.isVehicleUnPark(vehicleOne);
             parkingLotSystem.unPark(vehicleTwo);
@@ -79,7 +81,7 @@ public class ParkingLotSystemTest {
 
     @Test
     public void givenAVehicle_WhenNotUnParked_ShouldReturnFalse() {
-        Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL);
+        Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE);
         try {
             parkingLotSystem.park(vehicleOne);
             boolean isUnPark = parkingLotSystem.isVehicleUnPark(vehicleOne);
@@ -91,9 +93,9 @@ public class ParkingLotSystemTest {
 
     @Test
     public void givenAVehicle_WhenThereIsSpace1inParkingLot_ShouldAllowToPark() {
-        Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL);
-        Vehicle vehicleTwo = new Vehicle("2", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL);
-        Vehicle vehicleThree = new Vehicle("3", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL);
+        Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE);
+        Vehicle vehicleTwo = new Vehicle("2", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE);
+        Vehicle vehicleThree = new Vehicle("3", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE);
         try {
             parkingLotSystem.park(vehicleOne);
             parkingLotSystem.park(vehicleTwo);
@@ -108,7 +110,7 @@ public class ParkingLotSystemTest {
 
     @Test
     public void givenAVehicle_WhenAlreadyParked_ShouldThrowException() {
-        Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL);
+        Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE);
         try {
             parkingLotSystem.park(vehicleOne);
             parkingLotSystem.park(vehicleOne);
@@ -119,7 +121,7 @@ public class ParkingLotSystemTest {
 
     @Test
     public void givenAVehicle_WhenAskForPosition_ShouldReturnPosition() {
-        Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL);
+        Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE);
         try {
             parkingLotSystem.park(vehicleOne);
             String vehiclePosition = parkingLotSystem.getVehiclePosition(vehicleOne);
@@ -131,8 +133,8 @@ public class ParkingLotSystemTest {
 
     @Test
     public void givenAVehicles_WhenParkedInParkingLot_ShouldEvenlyDistributeInParkingLot() {
-        Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL);
-        Vehicle vehicleTwo = new Vehicle("2", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL);
+        Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE);
+        Vehicle vehicleTwo = new Vehicle("2", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE);
         try {
             parkingLotSystem.park(vehicleOne);
             parkingLotSystem.park(vehicleTwo);
@@ -146,9 +148,9 @@ public class ParkingLotSystemTest {
     }
     @Test
     public void givenAVehicle_WhenDriverIsHandicap_ShouldParkVehicleAtNearestLotPosition() {
-        Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL);
-        Vehicle vehicleTwo = new Vehicle("2", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL);
-        Vehicle vehicleThree = new Vehicle("3", Vehicle.DriverType.HANDICAP,Vehicle.VehicleSize.SMALL);
+        Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE);
+        Vehicle vehicleTwo = new Vehicle("2", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE);
+        Vehicle vehicleThree = new Vehicle("3", Vehicle.DriverType.HANDICAP,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE);
         try {
             parkingLotSystem.park(vehicleOne);
             parkingLotSystem.park(vehicleTwo);
@@ -162,10 +164,10 @@ public class ParkingLotSystemTest {
     }
     @Test
     public void givenVehicleOfLargeSize_WhenMaximumNumberOfParkingSlotAvailable_ShouldParkedInThatParkingLot() {
-        Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL);
-        Vehicle vehicleTwo = new Vehicle("2", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL);
-        Vehicle vehicleThree = new Vehicle("3", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL);
-        Vehicle vehicleFour = new Vehicle("4", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.LARGE);
+        Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE);
+        Vehicle vehicleTwo = new Vehicle("2", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE);
+        Vehicle vehicleThree = new Vehicle("3", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE);
+        Vehicle vehicleFour = new Vehicle("4", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.LARGE,Vehicle.VehicleColour.WHITE);
         try {
             parkingLotSystem.park(vehicleOne);
             parkingLotSystem.park(vehicleTwo);
@@ -173,6 +175,22 @@ public class ParkingLotSystemTest {
             parkingLotSystem.park(vehicleFour);
             String vehicleFourPosition = parkingLotSystem.getVehiclePosition(vehicleFour);
             Assert.assertEquals("A2 2", vehicleFourPosition);
+        } catch (ParkingLotSystemException e) {
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void givenParkingLotMap_WhenNeedInformationAsPerVehicleColour_ShouldReturnVehicleMapWithRespectiveColour() {
+        PoliceDepartment policeDepartment = new PoliceDepartment(parkingLotSystem);
+        Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL, Vehicle.VehicleSize.SMALL, Vehicle.VehicleColour.WHITE);
+        Vehicle vehicleTwo = new Vehicle("2", Vehicle.DriverType.NORMAL, Vehicle.VehicleSize.SMALL, Vehicle.VehicleColour.WHITE);
+        Vehicle vehicleThree = new Vehicle("3", Vehicle.DriverType.NORMAL, Vehicle.VehicleSize.SMALL, Vehicle.VehicleColour.WHITE);
+        try {
+            parkingLotSystem.park(vehicleOne);
+            parkingLotSystem.park(vehicleTwo);
+            parkingLotSystem.park(vehicleThree);
+            Map<String, Vehicle> vehiclesOfColour = policeDepartment.getVehicles(Vehicle.VehicleColour.WHITE);
+            Assert.assertEquals(3, vehiclesOfColour.size());
         } catch (ParkingLotSystemException e) {
             e.printStackTrace();
         }
