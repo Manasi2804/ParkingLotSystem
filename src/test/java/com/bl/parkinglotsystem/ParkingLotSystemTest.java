@@ -145,7 +145,6 @@ public class ParkingLotSystemTest {
             e.printStackTrace();
         }
     }
-
     @Test
     public void givenAVehicle_WhenDriverIsHandicap_ShouldParkVehicleAtNearestLotPosition() {
         Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL);
