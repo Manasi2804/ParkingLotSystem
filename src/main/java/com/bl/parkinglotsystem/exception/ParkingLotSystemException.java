@@ -2,10 +2,10 @@ package com.bl.parkinglotsystem.exception;
 
 public class ParkingLotSystemException  extends RuntimeException {
     public enum ExceptionType {
-        PARKING_FULL, NO_VEHICLE, CAR_ALREADY_PARKED;
+            NOT_PARKED_HERE, VEHICLE_ALREADY_PARKED, PARKING_LOT_IS_FULL;
     }
     public ExceptionType type;
-    public ParkingLotSystemException(String message, ExceptionType type) {
+    public ParkingLotSystemException( ExceptionType type,String message) {
         super(message);
         this.type = type;
     }
