@@ -115,7 +115,7 @@ public class ParkingLotSystemTest {
     @Test
     public void givenAnEmptyParkingLot_WhenAskedForNearestParkingSlot_ShouldReturnSlot0() {
         try {
-            Assert.assertEquals(1,slotAllotment.getNearestParkingSlot());
+            Assert.assertEquals(1,slotAllotment.getAvailableParkingSlot());
         } catch (ParkingLotSystemException e) {
             e.printStackTrace();
         }
@@ -127,10 +127,22 @@ public class ParkingLotSystemTest {
             Object vehicle1 = new Object();
             slotAllotment.parkUpdate(vehicle1,2);
             Assert.assertEquals(2,slotAllotment.parkingAvailabilityStatus.get(Availability.OCCUPIED).size());
-            slotAllotment.getNearestParkingSlot();
+            slotAllotment.getAvailableParkingSlot();
         } catch (ParkingLotSystemException e) {
             e.printStackTrace();
             Assert.assertEquals(ParkingLotSystemException.ExceptionType.PARKING_FULL,e.type);
+        }
+    }
+    @Test
+    public void givenParkingSlot_WhenTimeIsSet_ThenReturnTrue() {
+        parkingLotSystem.setParkingLotCapacity(10);
+        parkingLotSystem.initializeParkingLot();
+        try {
+            parkingLotSystem.parkTheCar(vehicle);
+            boolean isTimeSet = parkingLotSystem.setTime(vehicle);
+            Assert.assertTrue(isTimeSet);
+        } catch (ParkingLotSystemException e) {
+            e.printStackTrace();
         }
     }
 }

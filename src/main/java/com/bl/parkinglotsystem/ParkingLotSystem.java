@@ -3,13 +3,17 @@ package com.bl.parkinglotsystem;
 import com.bl.parkinglotsystem.exception.ParkingLotSystemException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class ParkingLotSystem {
 
     private final List parkedVehicles;
-    private SlotAllotment slotManager;
+    private List<ParkingTimeSlot> vehicles;
+    private SlotAllotment slotManager ;
     private int parkingCapacity;
     private boolean parkingCapacityFull;
+    private int parkingLotCapacity;
+
     public ParkingLotSystem(int parkingCapacity) {
         this.parkedVehicles = new ArrayList(parkingCapacity);
         this.slotManager = new SlotAllotment(parkingCapacity);
@@ -39,7 +43,7 @@ public class ParkingLotSystem {
     }
 
     private int getSlot() throws ParkingLotSystemException {
-        return slotManager.getNearestParkingSlot()-1;
+        return slotManager.getAvailableParkingSlot()-1;
     }
 
     public void unParkTheCar(Object vehicle) throws ParkingLotSystemException {
@@ -50,5 +54,18 @@ public class ParkingLotSystem {
         this.parkedVehicles.remove(vehicle);
         this.slotManager.unParkUpdate(vehicle);
         return;
+    }
+    public int initializeParkingLot() {
+       IntStream.range(0, this.parkingLotCapacity).forEach(slots -> vehicles.add(null));
+       return vehicles.size();
+    }
+
+    public boolean setTime(Object vehicle) {
+        ParkingTimeSlot parkingTimeSlot = new ParkingTimeSlot(vehicle);
+        for (int i = 0; i < this.vehicles.size(); i++) {
+            if (this.vehicles.get(i).time != null && this.vehicles.contains(parkingTimeSlot))
+                return true;
+        }
+        return false;
     }
 }
