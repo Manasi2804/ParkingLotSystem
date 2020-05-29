@@ -31,6 +31,6 @@ public class Vehicle {
             WHITE,BLUE
         }
         public enum VehicleModel {
-         TOYOTA
+         TOYOTA,BMW
         }
     }

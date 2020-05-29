@@ -48,7 +48,7 @@ public class ParkingLotSystemTest {
 
     @Test
     public void givenAVehicle_WhenNotParkedInParkingLot_ShouldReturnFalse() {
-        vehicle = new Vehicle("1", Vehicle.DriverType.NORMAL, Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE,Vehicle.VehicleModel.TOYOTA, "R");
+        vehicle = new Vehicle("1", Vehicle.DriverType.NORMAL, Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE,Vehicle.VehicleModel.BMW, "R");
         boolean isPark = parkingLotSystem.isVehicleParked(vehicle);
         Assert.assertFalse(isPark);
     }
@@ -69,8 +69,8 @@ public class ParkingLotSystemTest {
     @Test
     public void givenAVehicle_WhenNoVehicleUnParked_ShouldThrowException() {
         try {
-            Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE,Vehicle.VehicleModel.TOYOTA, "R");
-            Vehicle vehicleTwo = new Vehicle("2", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE,Vehicle.VehicleModel.TOYOTA, "R");
+            Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE,Vehicle.VehicleModel.BMW, "R");
+            Vehicle vehicleTwo = new Vehicle("2", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE,Vehicle.VehicleModel.BMW, "R");
             parkingLotSystem.park(vehicleOne);
             parkingLotSystem.isVehicleUnPark(vehicleOne);
             parkingLotSystem.unPark(vehicleTwo);
@@ -81,7 +81,7 @@ public class ParkingLotSystemTest {
 
     @Test
     public void givenAVehicle_WhenNotUnParked_ShouldReturnFalse() {
-        Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE,Vehicle.VehicleModel.TOYOTA, "R");
+        Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE,Vehicle.VehicleModel.BMW, "R");
         try {
             parkingLotSystem.park(vehicleOne);
             boolean isUnPark = parkingLotSystem.isVehicleUnPark(vehicleOne);
@@ -110,7 +110,7 @@ public class ParkingLotSystemTest {
 
     @Test
     public void givenAVehicle_WhenAlreadyParked_ShouldThrowException() {
-        Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE,Vehicle.VehicleModel.TOYOTA, "R");
+        Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE,Vehicle.VehicleModel.BMW, "R");
         try {
             parkingLotSystem.park(vehicleOne);
             parkingLotSystem.park(vehicleOne);
@@ -133,7 +133,7 @@ public class ParkingLotSystemTest {
 
     @Test
     public void givenAVehicles_WhenParkedInParkingLot_ShouldEvenlyDistributeInParkingLot() {
-        Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE,Vehicle.VehicleModel.TOYOTA, "R");
+        Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE,Vehicle.VehicleModel.BMW, "R");
         Vehicle vehicleTwo = new Vehicle("2", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE,Vehicle.VehicleModel.TOYOTA, "R");
         try {
             parkingLotSystem.park(vehicleOne);
@@ -150,7 +150,7 @@ public class ParkingLotSystemTest {
     public void givenAVehicle_WhenDriverIsHandicap_ShouldParkVehicleAtNearestLotPosition() {
         Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE,Vehicle.VehicleModel.TOYOTA, "R");
         Vehicle vehicleTwo = new Vehicle("2", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE,Vehicle.VehicleModel.TOYOTA, "R");
-        Vehicle vehicleThree = new Vehicle("3", Vehicle.DriverType.HANDICAP,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE,Vehicle.VehicleModel.TOYOTA, "R");
+        Vehicle vehicleThree = new Vehicle("3", Vehicle.DriverType.HANDICAP,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE,Vehicle.VehicleModel.BMW, "R");
         try {
             parkingLotSystem.park(vehicleOne);
             parkingLotSystem.park(vehicleTwo);
@@ -166,7 +166,7 @@ public class ParkingLotSystemTest {
     public void givenVehicleOfLargeSize_WhenMaximumNumberOfParkingSlotAvailable_ShouldParkedInThatParkingLot() {
         Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE,Vehicle.VehicleModel.TOYOTA, "R");
         Vehicle vehicleTwo = new Vehicle("2", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE,Vehicle.VehicleModel.TOYOTA, "R");
-        Vehicle vehicleThree = new Vehicle("3", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE,Vehicle.VehicleModel.TOYOTA, "R");
+        Vehicle vehicleThree = new Vehicle("3", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.SMALL,Vehicle.VehicleColour.WHITE,Vehicle.VehicleModel.BMW, "R");
         Vehicle vehicleFour = new Vehicle("4", Vehicle.DriverType.NORMAL,Vehicle.VehicleSize.LARGE,Vehicle.VehicleColour.WHITE,Vehicle.VehicleModel.TOYOTA, "R");
         try {
             parkingLotSystem.park(vehicleOne);
@@ -184,7 +184,7 @@ public class ParkingLotSystemTest {
         PoliceDepartment policeDepartment = new PoliceDepartment(parkingLotSystem);
         Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL, Vehicle.VehicleSize.SMALL, Vehicle.VehicleColour.WHITE,Vehicle.VehicleModel.TOYOTA, "R");
         Vehicle vehicleTwo = new Vehicle("2", Vehicle.DriverType.NORMAL, Vehicle.VehicleSize.SMALL, Vehicle.VehicleColour.WHITE,Vehicle.VehicleModel.TOYOTA, "R");
-        Vehicle vehicleThree = new Vehicle("3", Vehicle.DriverType.NORMAL, Vehicle.VehicleSize.SMALL, Vehicle.VehicleColour.WHITE,Vehicle.VehicleModel.TOYOTA, "R");
+        Vehicle vehicleThree = new Vehicle("3", Vehicle.DriverType.NORMAL, Vehicle.VehicleSize.SMALL, Vehicle.VehicleColour.WHITE,Vehicle.VehicleModel.BMW, "R");
         try {
             parkingLotSystem.park(vehicleOne);
             parkingLotSystem.park(vehicleTwo);
@@ -202,6 +202,8 @@ public class ParkingLotSystemTest {
                 Vehicle.VehicleColour.BLUE, Vehicle.VehicleModel.TOYOTA, "A");
         Vehicle vehicleTwo = new Vehicle("2", Vehicle.DriverType.NORMAL, Vehicle.VehicleSize.LARGE,
                 Vehicle.VehicleColour.WHITE, Vehicle.VehicleModel.TOYOTA, "B");
+        Vehicle vehicleThree = new Vehicle("3", Vehicle.DriverType.NORMAL, Vehicle.VehicleSize.SMALL,
+                Vehicle.VehicleColour.BLUE, Vehicle.VehicleModel.BMW, "C");
         try {
             parkingLotSystem.park(vehicleOne);
             parkingLotSystem.park(vehicleTwo);
