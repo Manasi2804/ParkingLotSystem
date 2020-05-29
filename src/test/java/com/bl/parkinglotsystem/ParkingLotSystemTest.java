@@ -195,4 +195,21 @@ public class ParkingLotSystemTest {
             e.printStackTrace();
         }
     }
+    @Test
+    public void givenParkingLot_WhenVehicleColorAndBrandMatch_ShouldReturnVehicleListWithColorBlueAndModelToyota() {
+        PoliceDepartment policeDepartment = new PoliceDepartment(parkingLotSystem);
+        Vehicle vehicleOne = new Vehicle("1", Vehicle.DriverType.NORMAL, Vehicle.VehicleSize.SMALL,
+                Vehicle.VehicleColour.BLUE, Vehicle.VehicleModel.TOYOTA, "A");
+        Vehicle vehicleTwo = new Vehicle("2", Vehicle.DriverType.NORMAL, Vehicle.VehicleSize.LARGE,
+                Vehicle.VehicleColour.WHITE, Vehicle.VehicleModel.TOYOTA, "B");
+        try {
+            parkingLotSystem.park(vehicleOne);
+            parkingLotSystem.park(vehicleTwo);
+            Map<String, Vehicle> vehiclesList = policeDepartment.getVehiclesWithColorAndModel(Vehicle.VehicleColour.BLUE,
+                    Vehicle.VehicleModel.TOYOTA);
+            Assert.assertEquals(1, vehiclesList.size());
+        } catch (ParkingLotSystemException e) {
+            e.printStackTrace();
+        }
+    }
 }

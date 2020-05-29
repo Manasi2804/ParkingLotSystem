@@ -28,7 +28,7 @@ public class Vehicle {
             LARGE, SMALL
         }
         public enum VehicleColour {
-            WHITE
+            WHITE,BLUE
         }
         public enum VehicleModel {
          TOYOTA
