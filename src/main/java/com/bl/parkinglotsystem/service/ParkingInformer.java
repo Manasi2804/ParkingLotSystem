@@ -1,4 +1,4 @@
-package com.bl.parkinglotsystem;
+package com.bl.parkinglotsystem.service;
 
 import com.bl.parkinglotsystem.Observer.ParkingLotObservar;
 

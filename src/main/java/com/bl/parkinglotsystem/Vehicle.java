@@ -6,21 +6,17 @@ public class Vehicle {
     VehicleColour vehicleColour;
     VehicleSize vehicleSize;
     DriverType driverType;
-    private String vehicleId;
+    
 
-    public Vehicle(String vehicleId, DriverType driverType, VehicleSize vehicleSize,
+    public Vehicle( DriverType driverType, VehicleSize vehicleSize,
                 VehicleColour vehicleColour, VehicleModel vehicleModel, String attendantName) {
-
-            this.vehicleId = vehicleId;
             this.driverType = driverType;
             this.vehicleSize = vehicleSize;
             this.vehicleColour =  vehicleColour;
             this.vehicleModel = vehicleModel;
             this.attendantName = attendantName;
         }
-        public String getVehicleId() {
-            return vehicleId;
-        }
+
         public enum DriverType {
             HANDICAP, NORMAL
         }

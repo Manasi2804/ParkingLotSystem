@@ -4,14 +4,15 @@ import com.bl.parkinglotsystem.exception.ParkingLotSystemException;
 
 public class ParkingAttendant {
     ParkingLotSystem parkingLotSystem;
-    private int lot;
+    int lot;
 
-    //PARAMETRISED CONSTRUCTOR
     public ParkingAttendant(ParkingLotSystem parkingLotSystem) {
         this.parkingLotSystem = parkingLotSystem;
     }
 
-    //METHOD TO PARK THE VEHICLE IN PARKING LOT
+    /********
+     * @purpose: TO PARK THE VEHICLE IN PARKING LOT
+     */
     public void parkVehicle(Vehicle vehicle) throws ParkingLotSystemException {
         if (parkingLotSystem.isVehicleParked(vehicle)) {
             throw new ParkingLotSystemException(ParkingLotSystemException.ExceptionType.VEHICLE_ALREADY_PARKED, "Vehicle is already parked");
@@ -20,7 +21,9 @@ public class ParkingAttendant {
         parkingLotSystem.vehicleMap.put(key, vehicle);
     }
 
-    //METHOD TO UNPARK THE VEHICLE FROM PARKING LOT
+    /******
+     * @purpose: TO UNPARK THE VEHICLE FROM PARKING LOT
+     */
     public void unParkedVehicle(Vehicle vehicle) throws ParkingLotSystemException {
         if (parkingLotSystem.vehicleMap.containsValue(vehicle))
             parkingLotSystem.vehicleMap.remove(getVehiclePosition(vehicle), vehicle);
@@ -28,7 +31,9 @@ public class ParkingAttendant {
             throw new ParkingLotSystemException(ParkingLotSystemException.ExceptionType.NOT_PARKED_HERE, "VEHICLE_NOT_PARKED_HERE");
     }
 
-    //METHOD TO GET THE POSITION IF VEHICLE IN PARKING LOT
+    /*********
+     * @purpose: TO GET THE POSITION IF VEHICLE IN PARKING LOT
+     */
     public String getVehiclePosition(Vehicle vehicle) {
         return parkingLotSystem.vehicleMap.keySet().stream()
                 .filter(key -> vehicle.equals(parkingLotSystem.vehicleMap.get(key)))
@@ -36,7 +41,9 @@ public class ParkingAttendant {
                 .get();
     }
 
-    //METHOD TO GENERATE AND GET PARKING LOT POSITION
+    /*********
+     * @purpose: TO GENERATE AND GET PARKING LOT POSITION
+     */
     public String getParkingPosition() {
         String position = null;
         while (lot++ <= parkingLotSystem.NUMBER_OF_PARKING_LOTS) {
